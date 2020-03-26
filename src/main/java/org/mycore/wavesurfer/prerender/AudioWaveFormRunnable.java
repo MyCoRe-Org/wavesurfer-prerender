@@ -56,6 +56,7 @@ public class AudioWaveFormRunnable implements Runnable {
 
     public static Path getResultFilePath(MCRObjectID derivate, String ownerRelativePath) {
         return getSlotDirPath(derivate)
+            .resolve(derivate.toString())
             .resolve((ownerRelativePath.startsWith("/") ?  ownerRelativePath.substring(1) :ownerRelativePath) + ".json");
     }
 
@@ -82,7 +83,6 @@ public class AudioWaveFormRunnable implements Runnable {
 
     @Override
     public void run() {
-        final Path derivateFolder = getSlotDirPath(derivateID);
         final Path output = getResultFilePath(derivateID, this.relativeFilePath);
 
         final Path foldersToCreate = output.getParent();
