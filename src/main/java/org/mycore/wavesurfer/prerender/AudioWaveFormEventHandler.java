@@ -15,6 +15,7 @@ import org.mycore.common.config.MCRConfiguration;
 import org.mycore.common.events.MCREvent;
 import org.mycore.common.events.MCREventHandlerBase;
 import org.mycore.datamodel.metadata.MCRDerivate;
+import org.mycore.datamodel.niofs.MCRContentTypes;
 import org.mycore.datamodel.niofs.MCRPath;
 
 public class AudioWaveFormEventHandler extends MCREventHandlerBase {
@@ -29,7 +30,7 @@ public class AudioWaveFormEventHandler extends MCREventHandlerBase {
 
         final String mimeType;
         try {
-            mimeType = Files.probeContentType(path);
+            mimeType = MCRContentTypes.probeContentType(path);
         } catch (IOException e) {
             throw new MCRException("Error while detecting MIME-Type", e);
         }
