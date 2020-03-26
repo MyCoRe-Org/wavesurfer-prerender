@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import org.mycore.common.MCRException;
@@ -56,7 +57,8 @@ public class AudioWaveFormEventHandler extends MCREventHandlerBase {
     @Override
     protected void handleDerivateRepaired(MCREvent evt, MCRDerivate der) {
         try (Stream<Path> ps = Files.walk(MCRPath.getPath(der.getId().toString(), "/"))) {
-            ps.forEach(path -> handlePathUpdated(evt, path, null));
+            final Predicate<Path> isDirectory = Files::isDirectory;
+            ps.filter(isDirectory.negate()).forEach(path -> handlePathUpdated(evt, path, null));
         } catch (IOException e) {
             throw new MCRException("Error while repairing derivate!", e);
         }
