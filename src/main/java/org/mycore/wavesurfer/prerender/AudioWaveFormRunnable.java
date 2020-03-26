@@ -86,12 +86,11 @@ public class AudioWaveFormRunnable implements Runnable {
         final Path output = getResultFilePath(derivateID, this.relativeFilePath);
 
         final Path foldersToCreate = output.getParent();
-        if (!foldersToCreate.equals(derivateFolder)) {
-            try {
-                Files.createDirectories(foldersToCreate);
-            } catch (IOException e) {
-                throw new MCRException("Error while creating directory!");
-            }
+
+        try {
+            Files.createDirectories(foldersToCreate);
+        } catch (IOException e) {
+            throw new MCRException("Error while creating directory!");
         }
 
         Process solrProccess = null;
