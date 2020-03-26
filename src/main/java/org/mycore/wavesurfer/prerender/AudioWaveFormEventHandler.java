@@ -23,7 +23,7 @@ public class AudioWaveFormEventHandler extends MCREventHandlerBase {
 
     public static final LinkedBlockingQueue<Runnable> WORK_QUEUE = new LinkedBlockingQueue<>();
 
-    final ThreadPoolExecutor tpe = new ThreadPoolExecutor(1, 10, 10, TimeUnit.MINUTES, WORK_QUEUE);
+    final ThreadPoolExecutor tpe = new ThreadPoolExecutor(10, 10, 10, TimeUnit.MINUTES, WORK_QUEUE);
 
     @Override
     protected void handlePathUpdated(MCREvent evt, Path path, BasicFileAttributes attrs) {
@@ -52,6 +52,11 @@ public class AudioWaveFormEventHandler extends MCREventHandlerBase {
         } catch (IOException e) {
             throw new MCRException("Error while deleting old wave form file", e);
         }
+    }
+
+    @Override
+    protected void handlePathRepaired(MCREvent evt, Path path, BasicFileAttributes attrs) {
+        handlePathUpdated(evt, path, attrs);
     }
 
     @Override
