@@ -23,7 +23,7 @@ public class AudioWaveFormEventHandler extends MCREventHandlerBase {
 
     public static final LinkedBlockingQueue<Runnable> WORK_QUEUE = new LinkedBlockingQueue<>();
 
-    final ThreadPoolExecutor tpe = new ThreadPoolExecutor(10, 10, 10, TimeUnit.MINUTES, WORK_QUEUE);
+    final ThreadPoolExecutor tpe = new ThreadPoolExecutor(5, 10, 10, TimeUnit.MINUTES, WORK_QUEUE);
 
     @Override
     protected void handlePathUpdated(MCREvent evt, Path path, BasicFileAttributes attrs) {

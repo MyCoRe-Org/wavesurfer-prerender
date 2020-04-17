@@ -122,7 +122,7 @@ public class AudioWaveFormRunnable implements Runnable {
 
     private void fixWavesurferJSON(WaveSurferJSON json) {
         final Double[] data = json.data;
-        final Optional<Double> max = Stream.of(data).max(Double::compareTo);
+        final Optional<Double> max = Stream.of(data).map(Math::abs).max(Double::compareTo);
         double roundFactor = Math.pow(10, ROUND_TO_DIGITS_AFTER_POINT);
         max.ifPresent((maxValue) -> {
             LOGGER.info("Fixing Wavesurfer json with max int : " + maxValue);
